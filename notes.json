@@ -1,32 +1,15 @@
 {
-    "New Note": {
-        "content": "",
+    "Praca w IT": {
+        "content": "1) \n2) fjdfj",
         "tags": [
-            ""
+            "praca",
+            "IT"
         ]
     },
-    "New Note 12": {
-        "content": "jkjkjkj",
+    "Shopping list": {
+        "content": "Hello",
         "tags": [
-            ""
-        ]
-    },
-    "0986fhh": {
-        "content": "",
-        "tags": [
-            ""
-        ]
-    },
-    "New 1356": {
-        "content": "",
-        "tags": [
-            ""
-        ]
-    },
-    "New Note 67587487": {
-        "content": "",
-        "tags": [
-            ""
+            "shopping"
         ]
     }
 }

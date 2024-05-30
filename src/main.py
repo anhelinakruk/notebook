@@ -1,34 +1,40 @@
 import tkinter as tk
 from tkinter import Menu, ttk, simpledialog, messagebox
-from ui import  delete_note, load_notes, filter_notes_by_tag, search_notes, add_note_if_allowed
+from ui import delete_note, load_notes, filter_notes_by_tag, search_notes, add_note_if_allowed, export_notes_by_tag
 from file_ops import open_file, save_file
+import os
 
 root = tk.Tk()
 root.title("Notes App")
-root.geometry("500x450")
+root.geometry("650x450")
 
 style = ttk.Style()
 style.configure("TNotebook.Tab", font=("TkDefaultFont", 14, "bold"))
 
 notebook = ttk.Notebook(root, style="TNotebook")
-notebook.pack(padx=10, pady=0, fill=tk.BOTH, expand=True)
+notebook.pack(padx=10, pady=10, fill=tk.BOTH, expand=True)
 
 load_notes(notebook)
 
 button_frame = ttk.Frame(root)
-button_frame.pack(fill=tk.X, padx=0, pady=10)
+button_frame.pack(fill=tk.X, padx=10, pady=10)
 
-new_button = ttk.Button(button_frame, text="New Note", command=lambda: add_note_if_allowed(notebook))
-new_button.pack(side=tk.LEFT, padx=10, pady=0)
+button_style = {"font": ("TkDefaultFont", 12), "padding": (5, 5)}
 
-delete_button = ttk.Button(button_frame, text="Delete", command=lambda: delete_note(notebook))
-delete_button.pack(side=tk.LEFT, padx=5, pady=0)
+new_button = ttk.Button(button_frame, text="New Note", command=lambda: add_note_if_allowed(notebook), style="TButton")
+new_button.pack(side=tk.LEFT, padx=5, pady=5)
 
-filter_button = ttk.Button(button_frame, text="Filter by Tag", command=lambda: filter_by_tag())
-filter_button.pack(side=tk.LEFT, padx=5, pady=0)
+delete_button = ttk.Button(button_frame, text="Delete", command=lambda: delete_note(notebook), style="TButton")
+delete_button.pack(side=tk.LEFT, padx=5, pady=5)
 
-search_button = ttk.Button(button_frame, text="Search Notes", command=lambda: search_for_notes())
-search_button.pack(side=tk.LEFT, padx=5, pady=0)
+filter_button = ttk.Button(button_frame, text="Filter by Tag", command=lambda: filter_by_tag(), style="TButton")
+filter_button.pack(side=tk.LEFT, padx=5, pady=5)
+
+search_button = ttk.Button(button_frame, text="Search Notes", command=lambda: search_for_notes(), style="TButton")
+search_button.pack(side=tk.LEFT, padx=5, pady=5)
+
+export_button = ttk.Button(button_frame, text="Export by Tag", command=lambda: export_notes(), style="TButton")
+export_button.pack(side=tk.LEFT, padx=5, pady=5)
 
 main_menu = Menu(root)
 root.config(menu=main_menu)
@@ -49,5 +55,10 @@ def search_for_notes():
     if query:
         results = search_notes(query)
         messagebox.showinfo("Search Results", "\n".join(results))
+
+def export_notes():
+    tag = simpledialog.askstring("Export Notes", "Enter tag to export by:")
+    if tag:
+        export_notes_by_tag(tag)
 
 root.mainloop()
